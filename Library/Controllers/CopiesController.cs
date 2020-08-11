@@ -33,6 +33,7 @@ namespace Library.Controllers
     else 
     {
       ViewBag.Dumb = _db.Books.Where(book => book.BookName.ToLower().Contains(searchString)).ToList();
+
       return View();
     }
   }
@@ -42,13 +43,18 @@ namespace Library.Controllers
       return View();
     }
 
-    // [HttpPost]
-    // public ActionResult Create()
-    // {
-    //   // _db.Copy.Add(student);
-    //   return view();
-    // }
-
-    //
+    [HttpPost]
+    public ActionResult Create(Copy copy, string numCopies)
+    {
+      int intNumCopies = int.Parse(numCopies);
+      // for (int i=0; i<intNumCopies; i++)
+      // {
+        Copy newCopy = new Copy();
+      _db.Copies.Add(newCopy);
+         _db.SaveChanges();
+      // }
+   
+      return RedirectToAction("Index");
+    }
   }
 }
