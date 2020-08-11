@@ -38,6 +38,16 @@
 | Engineer <=> Machine reflects many to many relationship | none | none |
 | Join relationships between Engineer & Machine can be added or deleted | none | none |
 
+As a patron, I want to check a book out, so that I can take it home with me.
+
+As a patron, I want to know how many copies of a book are on the shelf, so that I can see if any are available. (Hint: make a copies table; a book should have many copies.)
+
+- a search to find a book. 
+- in details of a book - show how many copies of a book there are left
+- where are we adding copies?(ie into our copies table) on our website.  
+    - in copies create, viewbagbookname and "add/submit" a copy in the table.
+- 
+
 ## 🐛Known Bugs
 
 _No known bugs_

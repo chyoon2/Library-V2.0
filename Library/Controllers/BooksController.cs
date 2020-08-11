@@ -47,9 +47,7 @@ namespace Library.Controllers
         _db.Entry(book).State = EntityState.Modified;
         _db.SaveChanges();
         return RedirectToAction("Index");
-      
     }
-
     public ActionResult Create()
     {
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");

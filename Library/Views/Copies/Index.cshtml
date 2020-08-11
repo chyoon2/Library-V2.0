@@ -1,26 +1,29 @@
 @{
   Layout = "_Layout";
 }
+<form action="Copies" method="post">
+        <input name="searchString" id="searchString" type="search" placeholder="Search">
+        <button type="submit">Search</button>
+</form>
+
 @using Library.Models;
-@model IEnumerable<Library.Models.Copy>;
+@model List<Library.Models.Copy>;
+@using System.Linq;
 
-<h1>Copies for @User.Identity.Name</h1>
+<h1>Copies for </h1>
 
-  @if (Model.Any())
+@if (@ViewBag.Dumb.Count == 0) 
 {
-  <ul>
-    @foreach (Copy copy in Model)
-    {
-      <li>@Html.ActionLink($"{copy.CopyName////}", "Details", new { id = book.BookId })</li>
-    }
-  </ul>
-} 
-else
-{
-  <h3>No books have been added yet!</h3>
+  <h3>No search results found.</h3>
+}
+else{
+<ul>
+  @foreach (Book book in @ViewBag.Dumb)
+  {
+    <li>@Html.ActionLink($"{book.BookName}", "Details", new { id = book.BookId })</li>
+  }
+</ul>
 }
 
-
-</ul>
-<p>@Html.ActionLink("Add new Book", "Create")</p>
+<p>@Html.ActionLink("Add new Copy", "Create")</p>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>

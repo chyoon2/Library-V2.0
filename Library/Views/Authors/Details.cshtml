@@ -2,25 +2,27 @@
   Layout = "_Layout";
 }
 
-@using Library.Models;
-@model IEnumerable<Library.Models.Author>;
+@model Library.Models.Author;
 
-<h1>Authors for @User.Identity.Name</h1>
+<h2>Author Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.AuthorName): @Html.DisplayFor(model => model.AuthorName)</h3>
 
-  @if (Model.Any())
+@if(@Model.Books.Count == 0)
 {
-  <ul>
-    @foreach (Author author in Model)
-    {
-      <li>@Html.ActionLink($"{author.AuthorName}", "Details", new { id = author.AuthorId })</li>
-    }
-  </ul>
-} 
+  <p>This Author does not have any Books</p>
+}
 else
 {
-  <h3>No authors have been added yet!</h3>
+  <h4>Books written by the author:</h4>
+  <ul>
+  @foreach(var join in Model.Books)
+  {
+    <li>@join.Book.BookName</li>
+  }
+  </ul>
 }
 
-</ul>
-<p>@Html.ActionLink("Add new Author", "Create")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Back to Author index", "Index")</p>
+<p>@Html.ActionLink("Edit Link doesnt work sorry", "Edit", new { id = Model.AuthorId })</p>
+<p>@Html.ActionLink("Delete Author this link doesnt work", "Delete", new { id = Model.AuthorId })</p>

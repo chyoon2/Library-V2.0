@@ -28,15 +28,13 @@ namespace Library.Controllers
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var userPatrons = _db.Patrons.Where(entry => entry.User.Id == currentUser.Id);
-      return View(userPatrons);
-    }
-//Index to show a list of books they checked out... use code below to show a list of books the user has checked out.
-    
-      var thisPatron = _db.Patrons
+      var userPatrons = _db.Patrons
         .Include(patron => patron.Copies)
         .ThenInclude(join => join.Copy)
-        .FirstOrDefault(patron => patron.PatronId == id);
-      return View(thisPatron);
+        .Where(entry => entry.User.Id == currentUser.Id);
+      return View(userPatrons);
+    }
   }
 }
+
+//Index to show a list of books they checked out... use code below to show a list of books the user has checked out.

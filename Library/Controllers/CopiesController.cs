@@ -9,3 +9,37 @@ using System.Security.Claims;
 using Library.Models;
 using System.Linq;
 using System;
+
+namespace Library.Controllers
+{
+  public class CopiesController : Controller
+  {
+    private readonly LibraryContext _db;
+    private readonly UserManager<LibrarianUser> _userManager;
+
+    public CopiesController(UserManager<LibrarianUser> userManager, LibraryContext db)
+    {
+      _userManager = userManager;
+      _db = db;
+    }
+  
+  public ActionResult Index(string searchString = null)
+  {
+      if (searchString == null)
+      {
+        ViewBag.Dumb = _db.Books.ToList();
+        return View();
+      }
+      else 
+      {
+        ViewBag.Dumb = _db.Books.Where(book => book.BookName.ToLower().Contains(searchString)).ToList();
+        return View();
+      }
+  }
+     public ActionResult Create()
+    {
+     
+      return View();
+    }
+  }
+}
