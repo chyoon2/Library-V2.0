@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Patron
+
+<h4>Add a new patron</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.PatronName)
+    @Html.TextBoxFor(model => model.PatronName)
+
+    @Html.Label("Select book") // will this make sense?
+    @Html.DropDownList("CopyId")
+
+    <input type="submit" value="Add new patron" class="btn btn-default" />
+}
+<p>@Html.ActionLink("Show all Patrons", "Index")</p>
