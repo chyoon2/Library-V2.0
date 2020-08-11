@@ -25,21 +25,30 @@ namespace Library.Controllers
   
   public ActionResult Index(string searchString = null)
   {
-      if (searchString == null)
-      {
-        ViewBag.Dumb = _db.Books.ToList();
-        return View();
-      }
-      else 
-      {
-        ViewBag.Dumb = _db.Books.Where(book => book.BookName.ToLower().Contains(searchString)).ToList();
-        return View();
-      }
-  }
-     public ActionResult Create()
+    if (searchString == null)
     {
-     
+      ViewBag.Dumb = _db.Books.ToList();
       return View();
     }
+    else 
+    {
+      ViewBag.Dumb = _db.Books.Where(book => book.BookName.ToLower().Contains(searchString)).ToList();
+      return View();
+    }
+  }
+     public ActionResult Create(int id)
+    {
+      ViewBag.BookDetails = _db.Books.FirstOrDefault(book => book.BookId == id);
+      return View();
+    }
+
+    // [HttpPost]
+    // public ActionResult Create()
+    // {
+    //   // _db.Copy.Add(student);
+    //   return view();
+    // }
+
+    //
   }
 }
