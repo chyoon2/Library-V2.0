@@ -37,8 +37,9 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult IsCheckedOut(Copy copy)
+    public ActionResult IsCheckedOut(int id)
     { 
+      System.Console.WriteLine(id);
       // var something = _db.Copies.FirstOrDefault(copy => copy.CopyId = Id);
       // something.Checkout = false;
       // _db.Entry(something).State = EntityState.Modified;
@@ -48,11 +49,10 @@ namespace Library.Controllers
       //false is lowercase
       //return RedirectToAction("Details", "Books", new {id = BookId});
 
-      _db.Entry(copy).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Index", new { id = item.ItemId});
+      // _db.Entry(copy).State = EntityState.Modified;
+      // _db.SaveChanges();
+      return RedirectToAction("Index", "Books" );
 
-     
     }
   }
 }
@@ -62,4 +62,4 @@ namespace Library.Controllers
   //     @Html.HiddenFor(model => model.Description)
   //     <p>Complete:</p>@Html.CheckBoxFor(model => model.Complete)
   //     <input type="submit" value="Save" />
-  //   } 
+  //   }   return RedirectToAction("Index", "Books" new { id = copy.CopyId})

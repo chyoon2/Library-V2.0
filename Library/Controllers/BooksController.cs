@@ -76,7 +76,12 @@ namespace Library.Controllers
 
     public ActionResult Details(int id)
     {
+      ViewBag.CopiesList = _db.Copies.Where(x => x.BookId == id).Where(x => x.IsCheckedOut == false).ToList();
+      //trying to make a viewbag to pass to details.
+      //where that copy id can toggle boolean
+
       var thisBook = _db.Books
+        .Include(copy => copy.Copies)
         .Include(book => book.Authors)// join enitities of authorbook.
         .ThenInclude(join => join.Author)
         .FirstOrDefault(book => book.BookId == id);

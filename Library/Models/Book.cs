@@ -14,6 +14,6 @@ namespace Library.Models
     public virtual LibrarianUser User { get; set; } 
     
     public ICollection<AuthorBook> Authors { get;}
-    public virtual ICollection<Copy> Copies { get; } //new
+    public virtual ICollection<Copy> Copies { get; } 
   }
 }
