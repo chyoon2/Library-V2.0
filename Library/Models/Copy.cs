@@ -12,13 +12,12 @@ namespace Library.Models
 
         public virtual Book Book { get; set; } 
         public int? BookId {get; set;}
-
         public int CopyId { get; set; }
         public string CopyName { get; set; }
+        public Boolean? IsCheckedOut {get; set;} = false;
+        public DateTime? DueDate {get; set;} = null;
 
-        public bool? Available {get; set;} = true;
-        public DateTime? Due {get; set;} = null;
-    
+        
         public virtual ICollection<Checkouts> Patrons { get; set; }
     }
 }

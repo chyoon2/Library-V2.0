@@ -22,12 +22,17 @@ namespace Library.Controllers
       _db = db;
     }
 
-    public async Task<ActionResult> Index()
+    public ActionResult Index(string searchQuery =null)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      return View(userBooks);
+      if (searchQuery == null)
+      {
+        var model = _db.Books.ToList();
+        return View(model);
+      }
+      else{ 
+        var model = _db.Books.Where(book => book.BookName.ToLower().Contains(searchQuery.ToLower())).ToList();
+        return View(model);
+      }
     }
     
     public ActionResult Edit(int id)

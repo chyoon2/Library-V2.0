@@ -47,6 +47,10 @@ As a patron, I want to know how many copies of a book are on the shelf, so that 
 - where are we adding copies?(ie into our copies table) on our website.  
     - in copies create, viewbagbookname and "add/submit" a copy in the table.
 - 
+-be able to obtain and pass a copyId.
+-be able to find first copyid that isnt already checked out. in controller.
+-change that copyid record to true.
+-
 
 ## 🐛Known Bugs
 

@@ -22,39 +22,44 @@ namespace Library.Controllers
       _userManager = userManager;
       _db = db;
     }
-  
-  public ActionResult Index(string searchString = null)
-  {
-    if (searchString == null)
-    {
-      ViewBag.Dumb = _db.Books.ToList();
-      return View();
-    }
-    else 
-    {
-      ViewBag.Dumb = _db.Books.Where(book => book.BookName.ToLower().Contains(searchString)).ToList();
 
-      return View();
-    }
-  }
-     public ActionResult Create(int id)
+    [HttpPost]
+    public ActionResult Create(int BookId, int Copies)
     {
-      ViewBag.BookDetails = _db.Books.FirstOrDefault(book => book.BookId == id);
-      return View();
+      for (int i=0; i< Copies; i++)
+      {
+        Copy newCopy = new Copy();
+        newCopy.BookId = BookId;
+        _db.Copies.Add(newCopy);
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", "Books", new {id = BookId});
     }
 
     [HttpPost]
-    public ActionResult Create(Copy copy, string numCopies)
-    {
-      int intNumCopies = int.Parse(numCopies);
-      // for (int i=0; i<intNumCopies; i++)
-      // {
-        Copy newCopy = new Copy();
-      _db.Copies.Add(newCopy);
-         _db.SaveChanges();
-      // }
-   
-      return RedirectToAction("Index");
+    public ActionResult IsCheckedOut(Copy copy)
+    { 
+      // var something = _db.Copies.FirstOrDefault(copy => copy.CopyId = Id);
+      // something.Checkout = false;
+      // _db.Entry(something).State = EntityState.Modified;
+      // _db.SaveChanges();
+      // return RedirectToAction("Index");
+      //this.Copies.CheckOut =
+      //false is lowercase
+      //return RedirectToAction("Details", "Books", new {id = BookId});
+
+      _db.Entry(copy).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index", new { id = item.ItemId});
+
+     
     }
   }
 }
+  // @using(Html.BeginForm("MarkComplete", "Items"))
+  //   {
+  //     @Html.HiddenFor(model => model.ItemId)
+  //     @Html.HiddenFor(model => model.Description)
+  //     <p>Complete:</p>@Html.CheckBoxFor(model => model.Complete)
+  //     <input type="submit" value="Save" />
+  //   } 

@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20200812033448_Initial2")]
+    partial class Initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,11 +74,15 @@ namespace Library.Migrations
                     b.Property<int>("CheckoutsId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("BookId");
+
                     b.Property<int>("CopyId");
 
                     b.Property<int>("PatronId");
 
                     b.HasKey("CheckoutsId");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("CopyId");
 
@@ -90,13 +96,13 @@ namespace Library.Migrations
                     b.Property<int>("CopyId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool?>("Available");
+
                     b.Property<int?>("BookId");
 
                     b.Property<string>("CopyName");
 
-                    b.Property<DateTime?>("DueDate");
-
-                    b.Property<bool?>("IsCheckedOut");
+                    b.Property<DateTime?>("Due");
 
                     b.HasKey("CopyId");
 
@@ -307,6 +313,10 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Checkouts", b =>
                 {
+                    b.HasOne("Library.Models.Book")
+                        .WithMany("Copies")
+                        .HasForeignKey("BookId");
+
                     b.HasOne("Library.Models.Copy", "Copy")
                         .WithMany("Patrons")
                         .HasForeignKey("CopyId")
@@ -321,7 +331,7 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.Models.Copy", b =>
                 {
                     b.HasOne("Library.Models.Book", "Book")
-                        .WithMany("Copies")
+                        .WithMany()
                         .HasForeignKey("BookId");
                 });
 

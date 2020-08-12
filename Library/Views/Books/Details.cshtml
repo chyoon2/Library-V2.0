@@ -24,6 +24,22 @@ else
   </ul>
 }
 
+@using (Html.BeginForm("Create", "Copies", FormMethod.Post))
+{
+  @Html.HiddenFor(model => model.BookId)
+  @Html.Label("Copies to Add")
+  @Html.TextBox("Copies", "Enter Number to add", new {@type = "number"})
+  <button class ="btn btn-info", type="submit">Add</button>
+}
+
+@using(Html.BeginForm("IsCheckedOut", "Copies"))
+{
+  @Html.HiddenFor(model => model.CopyId)
+  <button class ="btn btn-info", type="submit">CheckOut Book</button>
+}
+
+@*new {bookId = Model.BookId}*@
+
 <p>@Html.ActionLink("Back to Book index", "Index")</p>
-<p>@Html.ActionLink("Edit Link doesnt work sorry", "Edit", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Edit Link doesnt work not sorry", "Edit", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Delete link doesnt work", "Delete", new { id = Model.BookId })</p>
