@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using mvcapicall.Models;
+using MvcApiCall.Models;
 
-namespace mvcapicall.Controllers
+
+namespace MvcApiCall.Controllers
 {
     public class HomeController : Controller
     {

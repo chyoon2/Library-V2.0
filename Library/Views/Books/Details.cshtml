@@ -37,10 +37,12 @@ else
 {
   @using(Html.BeginForm("IsCheckedOut", "Copies"))
   {
+    @Html.DisplayFor(model => model.BookName)
     <input type="hidden", id="CopyId", name="CopyId" value="@(copy.CopyId)"/>
     <button class ="btn btn-info", type="submit">checkout</button>
+    <br>
+    <br>
   }
-  <p>"@(copy.CopyId)"</p>
 }
 
 

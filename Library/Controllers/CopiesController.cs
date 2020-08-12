@@ -39,27 +39,11 @@ namespace Library.Controllers
     [HttpPost]
     public ActionResult IsCheckedOut(int CopyId)
     { 
-      System.Console.WriteLine(CopyId);
       Copy patronCopy = _db.Copies.FirstOrDefault(copy => copy.CopyId == CopyId);
       patronCopy.IsCheckedOut = true;
-      // _db.Entry(something).State = EntityState.Modified;
-      // _db.SaveChanges();
-      // return RedirectToAction("Index");
-      //this.Copies.CheckOut =
-      //false is lowercase
-      //return RedirectToAction("Details", "Books", new {id = BookId});
-
       _db.Entry(patronCopy).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index", "Books" );
-
     }
   }
 }
-  // @using(Html.BeginForm("MarkComplete", "Items"))
-  //   {
-  //     @Html.HiddenFor(model => model.ItemId)
-  //     @Html.HiddenFor(model => model.Description)
-  //     <p>Complete:</p>@Html.CheckBoxFor(model => model.Complete)
-  //     <input type="submit" value="Save" />
-  //   }   return RedirectToAction("Index", "Books" new { id = copy.CopyId})
