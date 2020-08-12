@@ -51,7 +51,40 @@ As a patron, I want to know how many copies of a book are on the shelf, so that 
 -be able to find first copyid that isnt already checked out. in controller.
 -change that copyid record to true.
 -
+@*<form action="Copies" method="post">
+  </form>*@
+  @* , value="@(copy.CopyId)" *@
 
+@*@Html.HiddenFor(copy=>copy.CopyId)*@
+@*new {bookId = Model.BookId}*@
+@*add a value to button to pass back}*@
+@*make sure to pass back copyId.*@
+@*@using(Html.BeginForm("IsCheckedOut", "Copies", new { id= "@(copy.CopyId)"} ))*@
+@*
+@foreach (Copy copy in @Model.Copies)
+{
+  <form action="Copies" method="post">
+  
+    <input type="hidden", id="@(copy.CopyId)", name="@(copy.CopyId)" />
+    <button class ="btn btn-info", type="submit">checkout</button>
+  
+  </form>
+  <p>"@(copy.CopyId)"</p>
+  <p>"@Model.Copies"</p>
+}
+*@
+
+
+@foreach(Copy copy in @ViewBag.CopiesList)
+{
+  @using(Html.BeginForm("IsCheckedOut", "Copies"))
+  {
+    <input type="hidden", id="CopyId", name="CopyId" value="@(copy.CopyId)"/>
+    <button class ="btn btn-info", type="submit">checkout</button>
+  }
+  <p>"@(copy.CopyId)"</p>
+  
+}
 ## 🐛Known Bugs
 
 _No known bugs_
@@ -71,3 +104,55 @@ Contact : Megan Hepner
 ## **📘 License**
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Book;
+@using Library.Models
+
+<h2>Book Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.BookName): @Html.DisplayFor(model => model.BookName)</h3>
+
+@if(@Model.Authors.Count == 0)
+{
+  <p>This Book does not have any Authors</p>
+}
+else
+{
+  <h4>Author of this book:</h4>
+  <ul>
+  @foreach(var join in Model.Authors)
+  {
+    <li>@join.Author.AuthorName</li>
+  }
+  </ul>
+}
+
+
+@using (Html.BeginForm("Create", "Copies", FormMethod.Post))
+{
+  @Html.HiddenFor(model => model.BookId)
+  @Html.Label("Copies to Add")
+  @Html.TextBox("Copies", "Enter Number to add", new {@type = "number"})
+  <button class ="btn btn-info", type="submit">Add</button>
+}
+
+
+@foreach(Copy copy in @ViewBag.CopiesList)
+{
+  @using(Html.BeginForm("IsCheckedOut", "Copies"))
+  {
+    <input type="hidden", id="CopyId", name="CopyId" value="@(copy.CopyId)"/>
+    <button class ="btn btn-info", type="submit">checkout</button>
+  }
+  <p>"@(copy.CopyId)"</p>
+  
+}
+
+"@(copy.CopyId)"
+@*new{name = copy.CopyId))*@
+<p>@Html.ActionLink("Back to Book index", "Index")</p>
+<p>@Html.ActionLink("Edit Link doesnt work not sorry", "Edit", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Delete link doesnt work", "Delete", new { id = Model.BookId })</p>

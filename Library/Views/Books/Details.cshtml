@@ -8,7 +8,7 @@
 <h2>Book Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.BookName): @Html.DisplayFor(model => model.BookName)</h3>
-@*
+
 @if(@Model.Authors.Count == 0)
 {
   <p>This Book does not have any Authors</p>
@@ -23,7 +23,7 @@ else
   }
   </ul>
 }
-*@
+
 
 @using (Html.BeginForm("Create", "Copies", FormMethod.Post))
 {
@@ -33,39 +33,18 @@ else
   <button class ="btn btn-info", type="submit">Add</button>
 }
 
-@*
-@foreach (Copy copy in @ViewBag.CopiesList)
+@foreach(Copy copy in @ViewBag.CopiesList)
 {
-  @using(Html.BeginForm("IsCheckedOut", "Copies", new { id= "@(copy.CopyId)"} ))
+  @using(Html.BeginForm("IsCheckedOut", "Copies"))
   {
-    <input type="hidden", id="prettycopy", name="prettycopy", value="@(copy.CopyId)" />
+    <input type="hidden", id="CopyId", name="CopyId" value="@(copy.CopyId)"/>
     <button class ="btn btn-info", type="submit">checkout</button>
   }
   <p>"@(copy.CopyId)"</p>
-  <p>"@Model.Copies"</p>
 }
-*@
-
-@*
-@foreach (Copy copy in @Model.Copies)
-{
-  @using(Html.BeginForm("IsCheckedOut", "Copies", new { id= "@(copy.CopyId)"} ))
-  <form action="Copies" method="post">
-  
-    <input type="hidden", id="prettycopy", name="prettycopy", value="@(copy.CopyId)" />
-    <button class ="btn btn-info", type="submit">checkout</button>
-  </form>
-  <p>"@(copy.CopyId)"</p>
-  <p>"@Model.Copies"</p>
-}
-*@
 
 
-@*@Html.HiddenFor(copy=>copy.CopyId)*@
-@*new {bookId = Model.BookId}*@
-@*add a value to button to pass back}*@
-@*make sure to pass back copyId.*@
-
+@*new{name = copy.CopyId))*@
 <p>@Html.ActionLink("Back to Book index", "Index")</p>
 <p>@Html.ActionLink("Edit Link doesnt work not sorry", "Edit", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Delete link doesnt work", "Delete", new { id = Model.BookId })</p>

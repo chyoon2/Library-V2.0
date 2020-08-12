@@ -37,11 +37,11 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult IsCheckedOut(int id)
+    public ActionResult IsCheckedOut(int CopyId)
     { 
-      System.Console.WriteLine(id);
-      // var something = _db.Copies.FirstOrDefault(copy => copy.CopyId = Id);
-      // something.Checkout = false;
+      System.Console.WriteLine(CopyId);
+      Copy patronCopy = _db.Copies.FirstOrDefault(copy => copy.CopyId == CopyId);
+      patronCopy.IsCheckedOut = true;
       // _db.Entry(something).State = EntityState.Modified;
       // _db.SaveChanges();
       // return RedirectToAction("Index");
@@ -49,8 +49,8 @@ namespace Library.Controllers
       //false is lowercase
       //return RedirectToAction("Details", "Books", new {id = BookId});
 
-      // _db.Entry(copy).State = EntityState.Modified;
-      // _db.SaveChanges();
+      _db.Entry(patronCopy).State = EntityState.Modified;
+      _db.SaveChanges();
       return RedirectToAction("Index", "Books" );
 
     }
